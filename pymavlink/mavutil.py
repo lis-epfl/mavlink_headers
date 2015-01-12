@@ -9,9 +9,13 @@ Released under GNU GPL version 3 or later
 import socket, math, struct, time, os, fnmatch, array, sys, errno
 
 # adding these extra imports allows pymavlink to be used directly with pyinstaller
-# without having complex spec files
-import json
-from pymavlink.dialects.v10 import ardupilotmega
+# without having complex spec files. To allow for installs that don't have ardupilotmega
+# at all we avoid throwing an exception if it isn't installed
+try:
+    import json
+    from pymavlink.dialects.v10 import ardupilotmega
+except Exception:
+    pass
 
 # these imports allow for mavgraph and mavlogdump to use maths expressions more easily
 from math import *
@@ -28,7 +32,17 @@ if home is not None:
         mavuser = imp.load_source('pymavlink.mavuser', extra)
         from pymavlink.mavuser import *
 
+# Store the MAVLink library for the currently-selected dialect
+# (set by set_dialect())
 mavlink = None
+
+# Store the mavlink file currently being operated on
+# (set by mavlink_connection())
+mavfile_global = None
+
+# Use a globally-set MAVLink dialect if one has been specified as an environment variable.
+if not 'MAVLINK_DIALECT' in os.environ:
+    os.environ['MAVLINK_DIALECT'] = 'ardupilotmega'
 
 def mavlink10():
     '''return True if using MAVLink 1.0'''
@@ -52,8 +66,6 @@ def evaluate_condition(condition, vars):
     if v is None:
         return False
     return v
-
-mavfile_global = None
 
 class location(object):
     '''represent a GPS coordinate'''
@@ -92,9 +104,7 @@ def set_dialect(dialect):
     current_dialect = dialect
     mavlink = mod
 
-# allow for a MAVLINK_DIALECT environment variable
-if not 'MAVLINK_DIALECT' in os.environ:
-    os.environ['MAVLINK_DIALECT'] = 'ardupilotmega'
+# Set the default dialect. This is done here as it needs to be after the function declaration
 set_dialect(os.environ['MAVLINK_DIALECT'])
 
 class mavfile(object):
@@ -149,13 +159,17 @@ class mavfile(object):
         global mavlink
         if len(buf) == 0:
             return
-        if not ord(buf[0]) in [ 85, 254 ]:
+        try:
+            magic = ord(buf[0])
+        except:
+            magic = buf[0]
+        if not magic in [ 85, 254 ]:
             return
         self.first_byte = False
-        if self.WIRE_PROTOCOL_VERSION == "0.9" and ord(buf[0]) == 254:
+        if self.WIRE_PROTOCOL_VERSION == "0.9" and magic == 254:
             self.WIRE_PROTOCOL_VERSION = "1.0"
             set_dialect(current_dialect)
-        elif self.WIRE_PROTOCOL_VERSION == "1.0" and ord(buf[0]) == 85:
+        elif self.WIRE_PROTOCOL_VERSION == "1.0" and magic == 85:
             self.WIRE_PROTOCOL_VERSION = "0.9"
             set_dialect(current_dialect)
             os.environ['MAVLINK09'] = '1'
@@ -457,7 +471,7 @@ class mavfile(object):
             map = mode_mapping_tracker
         if map is None:
             return None
-        inv_map = dict((a, b) for (b, a) in map.items())
+        inv_map = dict((a, b) for (b, a) in list(map.items()))
         return inv_map
 
     def set_mode(self, mode):
@@ -537,25 +551,11 @@ class mavfile(object):
         else:
             print("Setting relays not supported.")
 
-    def calibrate_imu(self):
-        '''calibrate IMU'''
-        if self.mavlink10():
-            self.mav.command_long_send(self.target_system, self.target_component,
-                                       mavlink.MAV_CMD_PREFLIGHT_CALIBRATION, 0,
-                                       1, 1, 1, 1, 0, 0, 0)
-        else:
-            MAV_ACTION_CALIBRATE_GYRO = 17
-            self.mav.action_send(self.target_system, self.target_component, MAV_ACTION_CALIBRATE_GYRO)
-
     def calibrate_level(self):
-        '''calibrate accels'''
-        if self.mavlink10():
-            self.mav.command_long_send(self.target_system, self.target_component,
-                                       mavlink.MAV_CMD_PREFLIGHT_CALIBRATION, 0,
-                                       1, 1, 1, 1, 0, 0, 0)
-        else:
-            MAV_ACTION_CALIBRATE_ACC = 19
-            self.mav.action_send(self.target_system, self.target_component, MAV_ACTION_CALIBRATE_ACC)
+        '''calibrate accels (1D version)'''
+        self.mav.command_long_send(self.target_system, self.target_component,
+                                   mavlink.MAV_CMD_PREFLIGHT_CALIBRATION, 0,
+                                   1, 1, 0, 0, 0, 0, 0)
 
     def calibrate_pressure(self):
         '''calibrate pressure'''
@@ -612,7 +612,7 @@ class mavfile(object):
         if self.mavlink10():
             self.mav.command_long_send(
                 self.target_system,  # target_system
-                mavlink.MAV_COMP_ID_SYSTEM_CONTROL, # target_component
+                self.target_component,
                 mavlink.MAV_CMD_COMPONENT_ARM_DISARM, # command
                 0, # confirmation
                 1, # param1 (1 to indicate arm)
@@ -628,7 +628,7 @@ class mavfile(object):
         if self.mavlink10():
             self.mav.command_long_send(
                 self.target_system,  # target_system
-                mavlink.MAV_COMP_ID_SYSTEM_CONTROL, # target_component
+                self.target_component,
                 mavlink.MAV_CMD_COMPONENT_ARM_DISARM, # command
                 0, # confirmation
                 0, # param1 (0 to indicate disarm)
@@ -997,10 +997,17 @@ def mavlink_connection(device, baud=115200, source_system=255,
                        robust_parsing=True, notimestamps=False, input=True,
                        dialect=None, autoreconnect=False, zero_time_base=False):
     '''open a serial, UDP, TCP or file mavlink connection'''
+    global mavfile_global
+
     if dialect is not None:
         set_dialect(dialect)
     if device.startswith('tcp:'):
         return mavtcp(device[4:], source_system=source_system)
+    if device.startswith('udpin:'):
+        return mavudp(device[6:], input=True, source_system=source_system)
+    if device.startswith('udpout:'):
+        return mavudp(device[7:], input=False, source_system=source_system)
+    # For legacy purposes we accept the following syntax and let the caller to specify direction
     if device.startswith('udp:'):
         return mavudp(device[4:], input=input, source_system=source_system)
 
@@ -1008,7 +1015,6 @@ def mavlink_connection(device, baud=115200, source_system=255,
         # support dataflash logs
         from pymavlink import DFReader
         m = DFReader.DFReader_binary(device, zero_time_base=zero_time_base)
-        global mavfile_global
         mavfile_global = m
         return m
 
@@ -1016,7 +1022,6 @@ def mavlink_connection(device, baud=115200, source_system=255,
         # support dataflash text logs
         from pymavlink import DFReader
         if DFReader.DFReader_is_text_log(device):
-            global mavfile_global
             m = DFReader.DFReader_text(device, zero_time_base=zero_time_base)
             mavfile_global = m
             return m    
@@ -1097,20 +1102,26 @@ class SerialPort(object):
 def auto_detect_serial_win32(preferred_list=['*']):
     '''try to auto-detect serial ports on win32'''
     try:
-        import scanwin32
-        list = sorted(scanwin32.comports())
+        from serial.tools.list_ports_windows import comports
+        list = sorted(comports())
     except:
         return []
     ret = []
-    for order, port, desc, hwid in list:
+    others = []
+    for port, description, hwid in list:
+        matches = False
+        p = SerialPort(port, description=description, hwid=hwid)
         for preferred in preferred_list:
-            if fnmatch.fnmatch(desc, preferred) or fnmatch.fnmatch(hwid, preferred):
-                ret.append(SerialPort(port, description=desc, hwid=hwid))
+            if fnmatch.fnmatch(description, preferred) or fnmatch.fnmatch(hwid, preferred):
+                matches = True
+        if matches:
+            ret.append(p)
+        else:
+            others.append(p)
     if len(ret) > 0:
         return ret
     # now the rest
-    for order, port, desc, hwid in list:
-        ret.append(SerialPort(port, description=desc, hwid=hwid))
+    ret.extend(others)
     return ret
         
 
@@ -1121,19 +1132,21 @@ def auto_detect_serial_unix(preferred_list=['*']):
     import glob
     glist = glob.glob('/dev/ttyS*') + glob.glob('/dev/ttyUSB*') + glob.glob('/dev/ttyACM*') + glob.glob('/dev/serial/by-id/*')
     ret = []
+    others = []
     # try preferred ones first
     for d in glist:
+        matches = False
         for preferred in preferred_list:
             if fnmatch.fnmatch(d, preferred):
-                ret.append(SerialPort(d))
+                matches = True
+        if matches:
+            ret.append(SerialPort(d))
+        else:
+            others.append(SerialPort(d))
     if len(ret) > 0:
         return ret
-    # now the rest
-    for d in glist:
-        ret.append(SerialPort(d))
+    ret.extend(others)
     return ret
-
-
 
 def auto_detect_serial(preferred_list=['*']):
     '''try to auto-detect serial port'''
@@ -1350,7 +1363,7 @@ class MavlinkSerialPort():
         '''an object that looks like a serial port, but
         transmits using mavlink SERIAL_CONTROL packets'''
         def __init__(self, portname, baudrate, devnum=0, devbaud=0, timeout=3, debug=0):
-                from pymavlink import mavutil
+                from . import mavutil
 
                 self.baudrate = 0
                 self.timeout = timeout
@@ -1372,7 +1385,7 @@ class MavlinkSerialPort():
 
         def write(self, b):
                 '''write some bytes'''
-                from pymavlink import mavutil
+                from . import mavutil
                 self.debug("sending '%s' (0x%02x) of len %u\n" % (b, ord(b[0]), len(b)), 2)
                 while len(b) > 0:
                         n = len(b)
@@ -1391,7 +1404,7 @@ class MavlinkSerialPort():
 
         def _recv(self):
                 '''read some bytes into self.buf'''
-                from pymavlink import mavutil
+                from . import mavutil
                 start_time = time.time()
                 while time.time() < start_time + self.timeout:
                         m = self.mav.recv_match(condition='SERIAL_CONTROL.count!=0',
@@ -1442,7 +1455,7 @@ class MavlinkSerialPort():
 
         def setBaudrate(self, baudrate):
                 '''set baudrate'''
-                from pymavlink import mavutil
+                from . import mavutil
                 if self.baudrate == baudrate:
                         return
                 self.baudrate = baudrate
@@ -1453,3 +1466,8 @@ class MavlinkSerialPort():
                                                  0, [0]*70)
                 self.flushInput()
                 self.debug("Changed baudrate %u" % self.baudrate)
+
+if __name__ == '__main__':
+        serial_list = auto_detect_serial(preferred_list=['*FTDI*',"*Arduino_Mega_2560*", "*3D_Robotics*", "*USB_to_UART*", '*PX4*', '*FMU*'])
+        for port in serial_list:
+            print("%s" % port)

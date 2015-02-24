@@ -1,6 +1,6 @@
 // MESSAGE ROLL_PITCH_YAW_THRUST_SETPOINT PACKING
 
-#define MAVLINK_MSG_ID_ROLL_PITCH_YAW_THRUST_SETPOINT 159
+#define MAVLINK_MSG_ID_ROLL_PITCH_YAW_THRUST_SETPOINT 180
 
 typedef struct __mavlink_roll_pitch_yaw_thrust_setpoint_t
 {
@@ -12,10 +12,10 @@ typedef struct __mavlink_roll_pitch_yaw_thrust_setpoint_t
 } mavlink_roll_pitch_yaw_thrust_setpoint_t;
 
 #define MAVLINK_MSG_ID_ROLL_PITCH_YAW_THRUST_SETPOINT_LEN 20
-#define MAVLINK_MSG_ID_159_LEN 20
+#define MAVLINK_MSG_ID_180_LEN 20
 
 #define MAVLINK_MSG_ID_ROLL_PITCH_YAW_THRUST_SETPOINT_CRC 239
-#define MAVLINK_MSG_ID_159_CRC 239
+#define MAVLINK_MSG_ID_180_CRC 239
 
 
 

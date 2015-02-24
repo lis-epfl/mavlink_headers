@@ -95,6 +95,7 @@ typedef enum MAV_CMD
 	MAV_CMD_SET_SCENARIO=501, /* Mission command to set the scenario |scenario number| Empty| Empty| Empty| Empty| Empty| Empty|  */
 	MAV_CMD_SET_STRATEGY=502, /* Mission command to set the collision avoidance strategy |strategy number| Empty| Empty| Empty| Empty| Empty| Empty|  */
 	MAV_CMD_SET_COLL_AVOID_PARAM=503, /* Sets the collision avoidance parameters |Param 1 (depends on the strategy)| Param 2 (depends on the strategy)| Param 3 (depends on the strategy)| Param 4 (depends on the strategy)| Param 5 (depends on the strategy)| Param 6 (depends on the strategy)| Param 7 (depends on the strategy)|  */
+	MAV_CMD_TOGGLE_DATA_LOG=504, /* Starts/stops SD card data logging |Start/stop (0=stop, 1=start)| Empty| Empty| Empty| Empty| Empty| Empty|  */
 	MAV_CMD_IMAGE_START_CAPTURE=2000, /* Start image capture sequence |Duration between two consecutive pictures (in seconds)| Number of images to capture total - 0 for unlimited capture| Resolution in megapixels (0.3 for 640x480, 1.3 for 1280x720, etc)|  */
 	MAV_CMD_IMAGE_STOP_CAPTURE=2001, /* Stop image capture sequence |Reserved| Reserved|  */
 	MAV_CMD_VIDEO_START_CAPTURE=2500, /* Starts video capture |Camera ID (0 for all cameras), 1 for first, 2 for second, etc.| Frames per second| Resolution in megapixels (0.3 for 640x480, 1.3 for 1280x720, etc)|  */

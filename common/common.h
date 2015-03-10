@@ -95,7 +95,6 @@ typedef enum MAV_TYPE
 	MAV_TYPE_VTOL_RESERVED5=25, /* VTOL reserved 5 | */
 	MAV_TYPE_GIMBAL=26, /* Onboard gimbal | */
 	MAV_TYPE_ENUM_END=27, /*  | */
-	MAV_TYPE_ENUM_END=21, /*  | */
 } MAV_TYPE;
 #endif
 

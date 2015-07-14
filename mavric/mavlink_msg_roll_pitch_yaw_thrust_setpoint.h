@@ -30,7 +30,6 @@ typedef struct __mavlink_roll_pitch_yaw_thrust_setpoint_t
          } \
 }
 
-
 /**
  * @brief Pack a roll_pitch_yaw_thrust_setpoint message
  * @param system_id ID of this system

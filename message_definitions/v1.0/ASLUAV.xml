@@ -3,6 +3,21 @@
 <!-- Used for the ASLUAV fixed-wing autopilot (www.asl.ethz.ch), which implements extensions to the Pixhawk (www.pixhawk.org) autopilot -->
 <mavlink>
      <include>common.xml</include>
+     <enums>
+       <enum name="MAV_CMD">
+          <!-- ASLUAV specific MAV_CMD_* commands -->
+          <entry name="MAV_CMD_RESET_MPPT" value="40001">
+            <description>Mission command to reset Maximum Power Point Tracker (MPPT)</description>
+            <param index="1">MPPT number</param>
+            <param index="2">Empty</param>
+            <param index="3">Empty</param>
+            <param index="4">Empty</param>
+            <param index="5">Empty</param>
+            <param index="6">Empty</param>
+            <param index="7">Empty</param>
+          </entry>
+       </enum>
+     </enums>
      <messages>
           <message id="201" name="SENS_POWER">
               <description>Voltage and current sensor data</description>
@@ -77,5 +92,47 @@
               <field type="float" name="Motor_rpm"> Motor RPM </field>
               <!-- to be extended-->
           </message>
+          <message id="206" name="EKF_EXT">
+              <description>Extended EKF state estimates for ASLUAVs</description>
+              <field type="uint64_t" name="timestamp"> Time since system start [us]</field>
+              <field type="float" name="Windspeed"> Magnitude of wind velocity (in lateral inertial plane) [m/s]</field>
+              <field type="float" name="WindDir"> Wind heading angle from North [rad]</field>
+              <field type="float" name="WindZ"> Z (Down) component of inertial wind velocity [m/s]</field>
+              <field type="float" name="Airspeed"> Magnitude of air velocity [m/s]</field>
+              <field type="float" name="beta"> Sideslip angle [rad]</field>
+              <field type="float" name="alpha"> Angle of attack [rad]</field>
+          </message>
+          <message id="207" name="ASL_OBCTRL">
+              <description>Off-board controls/commands for ASLUAVs</description>
+              <field type="uint64_t" name="timestamp"> Time since system start [us]</field>
+              <field type="float" name="uElev"> Elevator command [~]</field>
+              <field type="float" name="uThrot"> Throttle command [~]</field>
+              <field type="float" name="uThrot2"> Throttle 2 command [~]</field>
+              <field type="float" name="uAilL"> Left aileron command [~]</field>
+              <field type="float" name="uAilR"> Right aileron command [~]</field>
+              <field type="float" name="uRud"> Rudder command [~]</field>
+              <field type="uint8_t" name="obctrl_status"> Off-board computer status</field>
+          </message>
+          <message id="208" name="SENS_ATMOS">
+              <description>Atmospheric sensors (temperature, humidity, ...) </description>
+              <field type="float" name="TempAmbient"> Ambient temperature [degrees Celsius]</field>
+              <field type="float" name="Humidity"> Relative humidity [%]</field>
+          </message>
+          <message id="209" name="SENS_BATMON">
+              <description>Battery pack monitoring data for Li-Ion batteries</description>
+              <field type="float" name="temperature">Battery pack temperature in [deg C]</field>
+              <field type="uint16_t" name="voltage">Battery pack voltage in [mV]</field>
+              <field type="int16_t" name="current">Battery pack current in [mA]</field>
+              <field type="uint8_t" name="SoC">Battery pack state-of-charge</field>
+              <field type="uint16_t" name="batterystatus">Battery monitor status report bits in Hex</field>
+              <field type="uint16_t" name="serialnumber">Battery monitor serial number in Hex</field>
+              <field type="uint16_t" name="hostfetcontrol">Battery monitor sensor host FET control in Hex</field>
+              <field type="uint16_t" name="cellvoltage1">Battery pack cell 1 voltage in [mV]</field>
+              <field type="uint16_t" name="cellvoltage2">Battery pack cell 2 voltage in [mV]</field>
+              <field type="uint16_t" name="cellvoltage3">Battery pack cell 3 voltage in [mV]</field>
+              <field type="uint16_t" name="cellvoltage4">Battery pack cell 4 voltage in [mV]</field>
+              <field type="uint16_t" name="cellvoltage5">Battery pack cell 5 voltage in [mV]</field>
+              <field type="uint16_t" name="cellvoltage6">Battery pack cell 6 voltage in [mV]</field>
+           </message>
      </messages>
 </mavlink>

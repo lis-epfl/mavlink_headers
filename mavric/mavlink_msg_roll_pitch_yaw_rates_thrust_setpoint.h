@@ -1,6 +1,10 @@
 // MESSAGE ROLL_PITCH_YAW_RATES_THRUST_SETPOINT PACKING
 
+<<<<<<< HEAD
 #define MAVLINK_MSG_ID_ROLL_PITCH_YAW_RATES_THRUST_SETPOINT 165
+=======
+#define MAVLINK_MSG_ID_ROLL_PITCH_YAW_RATES_THRUST_SETPOINT 182
+>>>>>>> f15e578e12c74c5b65542b99dc056f01753c7838
 
 typedef struct __mavlink_roll_pitch_yaw_rates_thrust_setpoint_t
 {
@@ -12,10 +16,17 @@ typedef struct __mavlink_roll_pitch_yaw_rates_thrust_setpoint_t
 } mavlink_roll_pitch_yaw_rates_thrust_setpoint_t;
 
 #define MAVLINK_MSG_ID_ROLL_PITCH_YAW_RATES_THRUST_SETPOINT_LEN 20
+<<<<<<< HEAD
 #define MAVLINK_MSG_ID_165_LEN 20
 
 #define MAVLINK_MSG_ID_ROLL_PITCH_YAW_RATES_THRUST_SETPOINT_CRC 127
 #define MAVLINK_MSG_ID_165_CRC 127
+=======
+#define MAVLINK_MSG_ID_182_LEN 20
+
+#define MAVLINK_MSG_ID_ROLL_PITCH_YAW_RATES_THRUST_SETPOINT_CRC 127
+#define MAVLINK_MSG_ID_182_CRC 127
+>>>>>>> f15e578e12c74c5b65542b99dc056f01753c7838
 
 
 

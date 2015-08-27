@@ -4,14 +4,14 @@
 
 typedef struct __mavlink_control_command_t
 {
- uint64_t time_usec; ///< Timestamp (microseconds since UNIX epoch or microseconds since system boot)
- float thrust; ///< Thrust command
- float torque[3]; ///< Torque command
- float rate[3]; ///< Rate command
- float angle[3]; ///< Angle command
- float quat[4]; ///< Attitude command
- float position[3]; ///< Position command
- float velocity[3]; ///< Velocity command
+ uint64_t time_usec; /*< Timestamp (microseconds since UNIX epoch or microseconds since system boot)*/
+ float thrust; /*< Thrust command*/
+ float torque[3]; /*< Torque command*/
+ float rate[3]; /*< Rate command*/
+ float angle[3]; /*< Angle command*/
+ float quat[4]; /*< Attitude command*/
+ float position[3]; /*< Position command*/
+ float velocity[3]; /*< Velocity command*/
 } mavlink_control_command_t;
 
 #define MAVLINK_MSG_ID_CONTROL_COMMAND_LEN 88

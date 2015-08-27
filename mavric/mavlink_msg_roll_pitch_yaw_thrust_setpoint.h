@@ -4,11 +4,11 @@
 
 typedef struct __mavlink_roll_pitch_yaw_thrust_setpoint_t
 {
- uint32_t time_boot_ms; ///< Timestamp in milliseconds since system boot
- float roll; ///< Desired roll angle in radians
- float pitch; ///< Desired pitch angle in radians
- float yaw; ///< Desired yaw angle in radians
- float thrust; ///< Collective thrust, normalized to 0 .. 1
+ uint32_t time_boot_ms; /*< Timestamp in milliseconds since system boot*/
+ float roll; /*< Desired roll angle in radians*/
+ float pitch; /*< Desired pitch angle in radians*/
+ float yaw; /*< Desired yaw angle in radians*/
+ float thrust; /*< Collective thrust, normalized to 0 .. 1*/
 } mavlink_roll_pitch_yaw_thrust_setpoint_t;
 
 #define MAVLINK_MSG_ID_ROLL_PITCH_YAW_THRUST_SETPOINT_LEN 20
@@ -29,6 +29,7 @@ typedef struct __mavlink_roll_pitch_yaw_thrust_setpoint_t
          { "thrust", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_roll_pitch_yaw_thrust_setpoint_t, thrust) }, \
          } \
 }
+
 
 /**
  * @brief Pack a roll_pitch_yaw_thrust_setpoint message

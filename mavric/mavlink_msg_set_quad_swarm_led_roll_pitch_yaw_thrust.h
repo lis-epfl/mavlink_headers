@@ -4,15 +4,15 @@
 
 typedef struct __mavlink_set_quad_swarm_led_roll_pitch_yaw_thrust_t
 {
- int16_t roll[4]; ///< Desired roll angle in radians +-PI (+-32767)
- int16_t pitch[4]; ///< Desired pitch angle in radians +-PI (+-32767)
- int16_t yaw[4]; ///< Desired yaw angle in radians, scaled to int16 +-PI (+-32767)
- uint16_t thrust[4]; ///< Collective thrust, scaled to uint16 (0..65535)
- uint8_t group; ///< ID of the quadrotor group (0 - 255, up to 256 groups supported)
- uint8_t mode; ///< ID of the flight mode (0 - 255, up to 256 modes supported)
- uint8_t led_red[4]; ///< RGB red channel (0-255)
- uint8_t led_blue[4]; ///< RGB green channel (0-255)
- uint8_t led_green[4]; ///< RGB blue channel (0-255)
+ int16_t roll[4]; /*< Desired roll angle in radians +-PI (+-32767)*/
+ int16_t pitch[4]; /*< Desired pitch angle in radians +-PI (+-32767)*/
+ int16_t yaw[4]; /*< Desired yaw angle in radians, scaled to int16 +-PI (+-32767)*/
+ uint16_t thrust[4]; /*< Collective thrust, scaled to uint16 (0..65535)*/
+ uint8_t group; /*< ID of the quadrotor group (0 - 255, up to 256 groups supported)*/
+ uint8_t mode; /*< ID of the flight mode (0 - 255, up to 256 modes supported)*/
+ uint8_t led_red[4]; /*< RGB red channel (0-255)*/
+ uint8_t led_blue[4]; /*< RGB green channel (0-255)*/
+ uint8_t led_green[4]; /*< RGB blue channel (0-255)*/
 } mavlink_set_quad_swarm_led_roll_pitch_yaw_thrust_t;
 
 #define MAVLINK_MSG_ID_SET_QUAD_SWARM_LED_ROLL_PITCH_YAW_THRUST_LEN 46

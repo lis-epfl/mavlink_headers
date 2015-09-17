@@ -4,12 +4,12 @@
 
 typedef struct __mavlink_set_roll_pitch_yaw_thrust_t
 {
- float roll; ///< Desired roll angle in radians
- float pitch; ///< Desired pitch angle in radians
- float yaw; ///< Desired yaw angle in radians
- float thrust; ///< Collective thrust, normalized to 0 .. 1
- uint8_t target_system; ///< System ID
- uint8_t target_component; ///< Component ID
+ float roll; /*< Desired roll angle in radians*/
+ float pitch; /*< Desired pitch angle in radians*/
+ float yaw; /*< Desired yaw angle in radians*/
+ float thrust; /*< Collective thrust, normalized to 0 .. 1*/
+ uint8_t target_system; /*< System ID*/
+ uint8_t target_component; /*< Component ID*/
 } mavlink_set_roll_pitch_yaw_thrust_t;
 
 #define MAVLINK_MSG_ID_SET_ROLL_PITCH_YAW_THRUST_LEN 18

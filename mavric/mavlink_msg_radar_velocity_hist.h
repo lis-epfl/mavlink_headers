@@ -4,9 +4,9 @@
 
 typedef struct __mavlink_radar_velocity_hist_t
 {
- uint32_t time_boot_ms; ///< Timestamp (milliseconds since system boot)
- uint8_t sensor_id; ///< Sensor ID
- uint8_t velocity[64]; ///< Velocity field
+ uint32_t time_boot_ms; /*< Timestamp (milliseconds since system boot)*/
+ uint8_t sensor_id; /*< Sensor ID*/
+ uint8_t velocity[64]; /*< Velocity field*/
 } mavlink_radar_velocity_hist_t;
 
 #define MAVLINK_MSG_ID_RADAR_VELOCITY_HIST_LEN 69

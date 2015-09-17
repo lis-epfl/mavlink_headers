@@ -4,15 +4,15 @@
 
 typedef struct __mavlink_state_correction_t
 {
- float xErr; ///< x position error
- float yErr; ///< y position error
- float zErr; ///< z position error
- float rollErr; ///< roll error (radians)
- float pitchErr; ///< pitch error (radians)
- float yawErr; ///< yaw error (radians)
- float vxErr; ///< x velocity
- float vyErr; ///< y velocity
- float vzErr; ///< z velocity
+ float xErr; /*< x position error*/
+ float yErr; /*< y position error*/
+ float zErr; /*< z position error*/
+ float rollErr; /*< roll error (radians)*/
+ float pitchErr; /*< pitch error (radians)*/
+ float yawErr; /*< yaw error (radians)*/
+ float vxErr; /*< x velocity*/
+ float vyErr; /*< y velocity*/
+ float vzErr; /*< z velocity*/
 } mavlink_state_correction_t;
 
 #define MAVLINK_MSG_ID_STATE_CORRECTION_LEN 36

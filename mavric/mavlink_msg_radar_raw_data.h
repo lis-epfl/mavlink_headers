@@ -4,9 +4,9 @@
 
 typedef struct __mavlink_radar_raw_data_t
 {
- uint32_t time_boot_ms; ///< Timestamp (milliseconds since system boot)
- int16_t values[64]; ///< raw sample values
- uint8_t sensor_id; ///< Sensor ID
+ uint32_t time_boot_ms; /*< Timestamp (milliseconds since system boot)*/
+ int16_t values[64]; /*< raw sample values*/
+ uint8_t sensor_id; /*< Sensor ID*/
 } mavlink_radar_raw_data_t;
 
 #define MAVLINK_MSG_ID_RADAR_RAW_DATA_LEN 133

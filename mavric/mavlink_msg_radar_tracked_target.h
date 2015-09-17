@@ -4,12 +4,12 @@
 
 typedef struct __mavlink_radar_tracked_target_t
 {
- uint32_t time_boot_ms; ///< Timestamp (milliseconds since system boot)
- float velocity; ///< Velocity estimate
- float amplitude; ///< Amplitude
- float distance; ///< Distance estimate
- uint8_t sensor_id; ///< Sensor ID
- uint8_t target_id; ///< Temporary enumeration of target
+ uint32_t time_boot_ms; /*< Timestamp (milliseconds since system boot)*/
+ float velocity; /*< Velocity estimate*/
+ float amplitude; /*< Amplitude*/
+ float distance; /*< Distance estimate*/
+ uint8_t sensor_id; /*< Sensor ID*/
+ uint8_t target_id; /*< Temporary enumeration of target*/
 } mavlink_radar_tracked_target_t;
 
 #define MAVLINK_MSG_ID_RADAR_TRACKED_TARGET_LEN 18

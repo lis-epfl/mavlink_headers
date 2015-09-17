@@ -4,13 +4,13 @@
 
 typedef struct __mavlink_set_local_position_setpoint_t
 {
- float x; ///< x position
- float y; ///< y position
- float z; ///< z position
- float yaw; ///< Desired yaw angle
- uint8_t target_system; ///< System ID
- uint8_t target_component; ///< Component ID
- uint8_t coordinate_frame; ///< Coordinate frame - valid values are only MAV_FRAME_LOCAL_NED or MAV_FRAME_LOCAL_ENU
+ float x; /*< x position*/
+ float y; /*< y position*/
+ float z; /*< z position*/
+ float yaw; /*< Desired yaw angle*/
+ uint8_t target_system; /*< System ID*/
+ uint8_t target_component; /*< Component ID*/
+ uint8_t coordinate_frame; /*< Coordinate frame - valid values are only MAV_FRAME_LOCAL_NED or MAV_FRAME_LOCAL_ENU*/
 } mavlink_set_local_position_setpoint_t;
 
 #define MAVLINK_MSG_ID_SET_LOCAL_POSITION_SETPOINT_LEN 19

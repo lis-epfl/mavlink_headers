@@ -4,11 +4,11 @@
 
 typedef struct __mavlink_set_quad_motors_setpoint_t
 {
- uint16_t motor_front_nw; ///< Front motor in + configuration, front left motor in x configuration
- uint16_t motor_right_ne; ///< Right motor in + configuration, front right motor in x configuration
- uint16_t motor_back_se; ///< Back motor in + configuration, back right motor in x configuration
- uint16_t motor_left_sw; ///< Left motor in + configuration, back left motor in x configuration
- uint8_t target_system; ///< System ID of the system that should set these motor commands
+ uint16_t motor_front_nw; /*< Front motor in + configuration, front left motor in x configuration*/
+ uint16_t motor_right_ne; /*< Right motor in + configuration, front right motor in x configuration*/
+ uint16_t motor_back_se; /*< Back motor in + configuration, back right motor in x configuration*/
+ uint16_t motor_left_sw; /*< Left motor in + configuration, back left motor in x configuration*/
+ uint8_t target_system; /*< System ID of the system that should set these motor commands*/
 } mavlink_set_quad_motors_setpoint_t;
 
 #define MAVLINK_MSG_ID_SET_QUAD_MOTORS_SETPOINT_LEN 9

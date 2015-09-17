@@ -4,11 +4,11 @@
 
 typedef struct __mavlink_global_position_setpoint_int_t
 {
- int32_t latitude; ///< WGS84 Latitude position in degrees * 1E7
- int32_t longitude; ///< WGS84 Longitude position in degrees * 1E7
- int32_t altitude; ///< WGS84 Altitude in meters * 1000 (positive for up)
- int16_t yaw; ///< Desired yaw angle in degrees * 100
- uint8_t coordinate_frame; ///< Coordinate frame - valid values are only MAV_FRAME_GLOBAL or MAV_FRAME_GLOBAL_RELATIVE_ALT
+ int32_t latitude; /*< WGS84 Latitude position in degrees * 1E7*/
+ int32_t longitude; /*< WGS84 Longitude position in degrees * 1E7*/
+ int32_t altitude; /*< WGS84 Altitude in meters * 1000 (positive for up)*/
+ int16_t yaw; /*< Desired yaw angle in degrees * 100*/
+ uint8_t coordinate_frame; /*< Coordinate frame - valid values are only MAV_FRAME_GLOBAL or MAV_FRAME_GLOBAL_RELATIVE_ALT*/
 } mavlink_global_position_setpoint_int_t;
 
 #define MAVLINK_MSG_ID_GLOBAL_POSITION_SETPOINT_INT_LEN 15

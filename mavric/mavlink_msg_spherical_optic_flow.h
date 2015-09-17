@@ -8,16 +8,16 @@
 
 typedef struct __mavlink_spherical_optic_flow_t
 {
- uint64_t time_usec; ///< Timestamp (microseconds since UNIX epoch or microseconds since system boot)
- int16_t of_azimuth[18]; ///< Azimuthal component of optic flow vectors, in millirad /sec
- int16_t of_elevation[18]; ///< Elevation component of optic flow vectors, in millirad /sec
- int16_t azimuth[18]; ///< Azimuth of regions used for optic flow computation, in millirad
- int16_t elevation[18]; ///< Elevation of regions used for optic flow computation, in millirad
- uint8_t id_sensor; ///< Sensor ID
- uint8_t nb_sensors; ///< Number of sensors sending data, this can also be used to indicate in how many messages the data from a single sensor was splitted
- uint8_t nb_of; ///< Number of Optic Flow vectors sent in this message (between 0 and 16)
- uint8_t status; ///< Status of the sensor
- uint8_t of_info[18]; ///< Information on the optic flow vectors
+ uint64_t time_usec; /*< Timestamp (microseconds since UNIX epoch or microseconds since system boot)*/
+ int16_t of_azimuth[18]; /*< Azimuthal component of optic flow vectors, in millirad /sec*/
+ int16_t of_elevation[18]; /*< Elevation component of optic flow vectors, in millirad /sec*/
+ int16_t azimuth[18]; /*< Azimuth of regions used for optic flow computation, in millirad*/
+ int16_t elevation[18]; /*< Elevation of regions used for optic flow computation, in millirad*/
+ uint8_t id_sensor; /*< Sensor ID*/
+ uint8_t nb_sensors; /*< Number of sensors sending data, this can also be used to indicate in how many messages the data from a single sensor was splitted*/
+ uint8_t nb_of; /*< Number of Optic Flow vectors sent in this message (between 0 and 16)*/
+ uint8_t status; /*< Status of the sensor*/
+ uint8_t of_info[18]; /*< Information on the optic flow vectors*/
 } mavlink_spherical_optic_flow_t;
 
 #define MAVLINK_MSG_ID_SPHERICAL_OPTIC_FLOW_LEN 174

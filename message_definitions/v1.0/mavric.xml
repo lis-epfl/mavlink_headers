@@ -4,6 +4,7 @@
 	<enums>
 	</enums>
 	<messages>
+<<<<<<< HEAD
 		<message id="150" name="RADAR_TRACKED_TARGET">
 			<description>Simple single-target output of a doppler radar</description>
 			<field type="uint32_t" name="time_boot_ms">Timestamp (milliseconds since system boot)</field>
@@ -78,6 +79,9 @@
 			<field type="float" name="thrust">Collective thrust, normalized to 0 .. 1</field>
 		</message>
 		<message id="159" name="ROLL_PITCH_YAW_THRUST_SETPOINT">
+=======
+		<message id="180" name="ROLL_PITCH_YAW_THRUST_SETPOINT">
+>>>>>>> 8215c26f8e9886fbb6cc19d31f18cc4db45f41ec
 			<description>Setpoint in roll, pitch, yaw currently active on the system.</description>
 			<field type="uint32_t" name="time_boot_ms">Timestamp in milliseconds since system boot</field>
 			<field type="float" name="roll">Desired roll angle in radians</field>
@@ -85,7 +89,11 @@
 			<field type="float" name="yaw">Desired yaw angle in radians</field>
 			<field type="float" name="thrust">Collective thrust, normalized to 0 .. 1</field>
 		</message>
+<<<<<<< HEAD
 		<message id="160" name="ROLL_PITCH_YAW_SPEED_THRUST_SETPOINT">
+=======
+		<message id="181" name="ROLL_PITCH_YAW_SPEED_THRUST_SETPOINT">
+>>>>>>> 8215c26f8e9886fbb6cc19d31f18cc4db45f41ec
 			<description>Setpoint in rollspeed, pitchspeed, yawspeed currently active on the system.</description>
 			<field type="uint32_t" name="time_boot_ms">Timestamp in milliseconds since system boot</field>
 			<field type="float" name="roll_speed">Desired roll angular speed in rad/s</field>
@@ -93,6 +101,7 @@
 			<field type="float" name="yaw_speed">Desired yaw angular speed in rad/s</field>
 			<field type="float" name="thrust">Collective thrust, normalized to 0 .. 1</field>
 		</message>
+<<<<<<< HEAD
 		<message id="161" name="SET_QUAD_MOTORS_SETPOINT">
 			<description>Setpoint in the four motor speeds</description>
 			<field type="uint8_t" name="target_system">System ID of the system that should set these motor commands</field>
@@ -135,6 +144,9 @@
 			<field type="float" name="vzErr">z velocity</field>
 		</message>
 		<message id="165" name="ROLL_PITCH_YAW_RATES_THRUST_SETPOINT">
+=======
+		<message id="182" name="ROLL_PITCH_YAW_RATES_THRUST_SETPOINT">
+>>>>>>> 8215c26f8e9886fbb6cc19d31f18cc4db45f41ec
 			<description>Setpoint in roll, pitch, yaw rates and thrust currently active on the system.</description>
 			<field type="uint32_t" name="time_boot_ms">Timestamp in milliseconds since system boot</field>
 			<field type="float" name="roll_rate">Desired roll rate in radians per second</field>
@@ -142,7 +154,11 @@
 			<field type="float" name="yaw_rate">Desired yaw rate in radians per second</field>
 			<field type="float" name="thrust">Collective thrust, normalized to 0 .. 1</field>
 		</message>
+<<<<<<< HEAD
 		<message id="166" name="SPHERICAL_OPTIC_FLOW">
+=======
+		<message id="183" name="SPHERICAL_OPTIC_FLOW">
+>>>>>>> 8215c26f8e9886fbb6cc19d31f18cc4db45f41ec
 			<description>Optical flow from multiple spherical optic flow sensors (e.g. semi-cylindrical CurvACE)</description>
 			<field type="uint64_t" name="time_usec">Timestamp (microseconds since UNIX epoch or microseconds since system boot)</field>
 			<field type="uint8_t" name="id_sensor">Sensor ID</field>
@@ -155,6 +171,20 @@
 			<field type="int16_t[18]" name="elevation">Elevation of regions used for optic flow computation, in millirad</field>
 			<field type="uint8_t[18]" name="of_info">Information on the optic flow vectors</field>
 		</message>
+<<<<<<< HEAD
+=======
+		<message id="184" name="CONTROL_COMMAND">
+			<description>Control commands in thrust, torque, rate, angle, position and velocity</description>
+			<field type="uint64_t" name="time_usec">Timestamp (microseconds since UNIX epoch or microseconds since system boot)</field>
+			<field type="float" name="thrust">Thrust command</field>
+			<field type="float[3]" name="torque">Torque command</field>
+			<field type="float[3]" name="rate">Rate command</field>
+			<field type="float[3]" name="angle">Angle command</field>
+			<field type="float[4]" name="quat">Attitude command</field>
+			<field type="float[3]" name="position">Position command</field>
+			<field type="float[3]" name="velocity">Velocity command</field>
+		</message>
+>>>>>>> 8215c26f8e9886fbb6cc19d31f18cc4db45f41ec
 	</messages>
 </mavlink>
 

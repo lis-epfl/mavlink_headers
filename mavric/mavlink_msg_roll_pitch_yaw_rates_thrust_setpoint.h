@@ -8,11 +8,11 @@
 
 typedef struct __mavlink_roll_pitch_yaw_rates_thrust_setpoint_t
 {
- uint32_t time_boot_ms; ///< Timestamp in milliseconds since system boot
- float roll_rate; ///< Desired roll rate in radians per second
- float pitch_rate; ///< Desired pitch rate in radians per second
- float yaw_rate; ///< Desired yaw rate in radians per second
- float thrust; ///< Collective thrust, normalized to 0 .. 1
+ uint32_t time_boot_ms; /*< Timestamp in milliseconds since system boot*/
+ float roll_rate; /*< Desired roll rate in radians per second*/
+ float pitch_rate; /*< Desired pitch rate in radians per second*/
+ float yaw_rate; /*< Desired yaw rate in radians per second*/
+ float thrust; /*< Collective thrust, normalized to 0 .. 1*/
 } mavlink_roll_pitch_yaw_rates_thrust_setpoint_t;
 
 #define MAVLINK_MSG_ID_ROLL_PITCH_YAW_RATES_THRUST_SETPOINT_LEN 20

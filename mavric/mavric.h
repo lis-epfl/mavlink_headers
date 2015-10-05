@@ -102,7 +102,7 @@ typedef enum MAV_CMD
 	MAV_CMD_SET_STRATEGY=502, /* Mission command to set the collision avoidance strategy |strategy number| Empty| Empty| Empty| Empty| Empty| Empty|  */
 	MAV_CMD_SET_COLL_AVOID_PARAM=503, /* Sets the collision avoidance parameters |Param 1 (depends on the strategy)| Param 2 (depends on the strategy)| Param 3 (depends on the strategy)| Param 4 (depends on the strategy)| Param 5 (depends on the strategy)| Param 6 (depends on the strategy)| Param 7 (depends on the strategy)|  */
 	MAV_CMD_TOGGLE_DATA_LOG=504, /* Starts/stops SD card data logging |Start/stop (0=stop, 1=start)| Empty| Empty| Empty| Empty| Empty| Empty|  */
-	MAV_CMD_SET_MANUAL_CTRL=505, /* Starts/stops SD card data logging |Activate/disactivate remote control (0=GND station control, 1=Remote control active)| Empty| Empty| Empty| Empty| Empty| Empty|  */
+	MAV_CMD_SET_MANUAL_CTRL=505, /* Activate/disactive remote control |Activate/disactivate remote control (0=GND station control, 1=Remote control active)| Empty| Empty| Empty| Empty| Empty| Empty|  */
 	MAV_CMD_GET_MESSAGE_INTERVAL=510, /* Request the interval between messages for a particular MAVLink message ID |The MAVLink message ID|  */
 	MAV_CMD_SET_MESSAGE_INTERVAL=511, /* Request the interval between messages for a particular MAVLink message ID. This interface replaces REQUEST_DATA_STREAM |The MAVLink message ID| The interval between two messages, in microseconds. Set to -1 to disable and 0 to request default rate.|  */
 	MAV_CMD_REQUEST_AUTOPILOT_CAPABILITIES=520, /* Request autopilot capabilities |1: Request autopilot version| Reserved (all remaining params)|  */

@@ -361,6 +361,51 @@ static void mavlink_test_angle_rate_velocity_sensors(uint8_t system_id, uint8_t 
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
 
+static void mavlink_test_big_debug_vect(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+	mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+	mavlink_big_debug_vect_t packet_in = {
+		93372036854775807ULL,{ 73.0, 74.0, 75.0, 76.0, 77.0, 78.0, 79.0, 80.0, 81.0, 82.0, 83.0, 84.0, 85.0, 86.0, 87.0, 88.0, 89.0, 90.0, 91.0, 92.0, 93.0, 94.0, 95.0, 96.0, 97.0, 98.0, 99.0, 100.0, 101.0, 102.0, 103.0, 104.0, 105.0, 106.0, 107.0, 108.0, 109.0, 110.0, 111.0, 112.0, 113.0, 114.0, 115.0, 116.0, 117.0, 118.0, 119.0, 120.0, 121.0, 122.0, 123.0, 124.0, 125.0, 126.0, 127.0, 128.0, 129.0, 130.0, 131.0, 132.0 },"OPQRST"
+    };
+	mavlink_big_debug_vect_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        	packet1.time_usec = packet_in.time_usec;
+        
+        	mav_array_memcpy(packet1.data, packet_in.data, sizeof(float)*60);
+        	mav_array_memcpy(packet1.name, packet_in.name, sizeof(char)*7);
+        
+
+        memset(&packet2, 0, sizeof(packet2));
+	mavlink_msg_big_debug_vect_encode(system_id, component_id, &msg, &packet1);
+	mavlink_msg_big_debug_vect_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+	mavlink_msg_big_debug_vect_pack(system_id, component_id, &msg , packet1.name , packet1.time_usec , packet1.data );
+	mavlink_msg_big_debug_vect_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+	mavlink_msg_big_debug_vect_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.name , packet1.time_usec , packet1.data );
+	mavlink_msg_big_debug_vect_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+        	comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+	mavlink_msg_big_debug_vect_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+	mavlink_msg_big_debug_vect_send(MAVLINK_COMM_1 , packet1.name , packet1.time_usec , packet1.data );
+	mavlink_msg_big_debug_vect_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+}
+
 static void mavlink_test_mavric(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
 	mavlink_test_roll_pitch_yaw_thrust_setpoint(system_id, component_id, last_msg);
@@ -370,6 +415,7 @@ static void mavlink_test_mavric(uint8_t system_id, uint8_t component_id, mavlink
 	mavlink_test_control_command(system_id, component_id, last_msg);
 	mavlink_test_gimbal_command(system_id, component_id, last_msg);
 	mavlink_test_angle_rate_velocity_sensors(system_id, component_id, last_msg);
+	mavlink_test_big_debug_vect(system_id, component_id, last_msg);
 }
 
 #ifdef __cplusplus

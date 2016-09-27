@@ -114,6 +114,7 @@ typedef enum MAV_CMD
 	MAV_CMD_REQUEST_AUTOPILOT_CAPABILITIES=520, /* Request autopilot capabilities |1: Request autopilot version| Reserved (all remaining params)|  */
 	MAV_CMD_NAV_ON_GROUND=1000, /* Drone on ground | Empty | Empty | Empty | Empty | Empty | Empty | Empty |  */
     MAV_CMD_NAV_MANUAL_CTRL=1001, /* Drone in manual control | Empty | Empty | Empty | Empty | Empty | Empty | Empty |  */
+    MAV_CMD_NAV_LAND_ON_TAG=1421, /* Land at location |Abort Alt| Empty| Empty| Desired yaw angle| Latitude| Longitude| Altitude|  */
     MAV_CMD_NAV_CRITICAL_WAYPOINT=1516, /* Navigate to MISSION. |Hold time in decimal seconds. (ignored by fixed wing, time to stay at MISSION for rotary wing)| Acceptance radius in meters (if the sphere with this radius is hit, the MISSION counts as reached)| 0 to pass through the WP, if > 0 radius in meters to pass by WP. Positive value for clockwise orbit, negative value for counter-clockwise orbit. Allows trajectory control.| Desired yaw angle at MISSION (rotary wing)| Latitude| Longitude| Altitude|  */
 	MAV_CMD_NAV_CRITICAL_LAND=1521, /* Land at location |Abort Alt| Empty| Empty| Desired yaw angle| Latitude| Longitude| Altitude|  */
 	MAV_CMD_IMAGE_START_CAPTURE=2000, /* Start image capture sequence |Duration between two consecutive pictures (in seconds)| Number of images to capture total - 0 for unlimited capture| Resolution in megapixels (0.3 for 640x480, 1.3 for 1280x720, etc)|  */
